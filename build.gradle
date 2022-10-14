@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
@@ -22,6 +23,8 @@ apply plugin:"com.bertramlabs.asset-pipeline"
 apply plugin:"org.grails.grails-gsp"
 
 repositories {
+    mavenLocal()
+    mavenCentral()
     maven { url "https://repo.grails.org/grails/core" }
 }
 
@@ -29,6 +32,17 @@ configurations {
     developmentOnly
     runtimeClasspath {
         extendsFrom developmentOnly
+    }
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("org.codehaus.groovy:groovy")).using(module("org.apache.groovy:groovy:4.0.5"))
+        substitute(module("org.codehaus.groovy:groovy-ant")).using(module("org.apache.groovy:groovy-ant:4.0.5"))
+        substitute(module("org.codehaus.groovy:groovy-json")).using(module("org.apache.groovy:groovy-json:4.0.5"))
+        substitute(module("org.codehaus.groovy:groovy-sql")).using(module("org.apache.groovy:groovy-sql:4.0.5"))
+        substitute(module("org.codehaus.groovy:groovy-templates")).using(module("org.apache.groovy:groovy-templates:4.0.5"))
+        substitute(module("org.codehaus.groovy:groovy-xml")).using(module("org.apache.groovy:groovy-xml:4.0.5"))
     }
 }
 
